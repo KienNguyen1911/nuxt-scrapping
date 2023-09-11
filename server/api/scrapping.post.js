@@ -9,10 +9,16 @@ export default defineEventHandler(async (event) => {
     }).catch((err) => {
         console.log(err)
     })
-    const dataSet = {}
+    const dataSet = {};
     try {
-        const browser = await puppeteer.launch({headless: 'new'});
+        const API_TOKEN = 'db80ec02-8039-43e2-ab7b-649c04698302';
+        console.log('Connecting to puppeteer');
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: `wss://chrome.browserless.io?token=${API_TOKEN}`,
+        });
+        console.log('Connected to puppeteer');
         const page = await browser.newPage();
+        console.log('Going to the page');
         await page.goto(url);
 
         if (!url) {
@@ -50,7 +56,8 @@ export default defineEventHandler(async (event) => {
             return dataSet
         }
     } catch (error) {
-        console.log('Cannot go to the page')        
+        console.log('Cannot go to the page')
+        console.log(error)  
     }
     return dataSet
   })
