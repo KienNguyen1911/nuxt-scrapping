@@ -32,8 +32,6 @@ export default defineEventHandler(async (event) => {
             // Set screen size
             await page.setViewport({width: 1280, height: 1024});
 
-            await page.screenshot({ path: 'example.png' });
-          
             const dataSet = await page.evaluate(() => {
                 const listImageLink = [];
                 const nameProduct = document.querySelector("#listing-page-cart .wt-mb-xs-1 .wt-text-body-01")?.innerText;
